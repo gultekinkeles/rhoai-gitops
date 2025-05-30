@@ -1,0 +1,15 @@
+{
+  "requestId": "user-456",
+  "type": "user",
+  "name": "johndoe",
+  "resources": {
+    "workbenches": [
+      {
+        "name": "personal-notebook",
+        "size": "medium",
+        "image": "tensorflow-notebook",
+        "storage": "30Gi"
+      }
+    ]
+  }
+}

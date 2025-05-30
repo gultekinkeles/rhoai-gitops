@@ -1,0 +1,29 @@
+{
+  "requestId": "group-123",
+  "type": "group",
+  "name": "data-science-team-a",
+  "resources": {
+    "workbenches": [
+      {
+        "name": "team-notebook-1",
+        "size": "medium",
+        "image": "s2i-minimal-notebook",
+        "storage": "50Gi"
+      },
+      {
+        "name": "team-notebook-2",
+        "size": "large",
+        "image": "pytorch-gpu-notebook",
+        "storage": "100Gi"
+      }
+    ],
+    "models": [
+      {
+        "name": "fraud-detection",
+        "runtime": "ovms",
+        "format": "onnx",
+        "size": "small"
+      }
+    ]
+  }
+}

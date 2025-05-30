@@ -1,0 +1,37 @@
+apiVersion: kubeflow.org/v1
+kind: Notebook
+metadata:
+  name: ${NOTEBOOK_NAME}
+  namespace: ${NAMESPACE}
+spec:
+  template:
+    spec:
+      containers:
+      - name: ${NOTEBOOK_NAME}
+        image: ${IMAGE}
+        resources:
+          limits:
+            cpu: "${CPU_LIMIT}"
+            memory: ${MEMORY_LIMIT}Gi
+          requests:
+            cpu: "${CPU_REQUEST}"
+            memory: ${MEMORY_REQUEST}Gi
+        volumeMounts:
+        - mountPath: /opt/app-root/src
+          name: ${NOTEBOOK_NAME}-pvc
+      volumes:
+      - name: ${NOTEBOOK_NAME}-pvc
+        persistentVolumeClaim:
+          claimName: ${NOTEBOOK_NAME}-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ${NOTEBOOK_NAME}-pvc
+  namespace: ${NAMESPACE}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${STORAGE_SIZE}

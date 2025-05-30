@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${NAMESPACE}
+  labels:
+    opendatahub.io/dashboard: "true"
+    owner: ${OWNER}
+    request-id: ${REQUEST_ID}
+    ${MODELMESH_LABEL}
