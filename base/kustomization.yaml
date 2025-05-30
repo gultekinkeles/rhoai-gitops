@@ -1,5 +1,7 @@
 resources:
-  - namespace-template.yaml
-  - workbench-template.yaml
-  - model-template.yaml
-  - servingruntime-template.yaml
+  - namespace.yaml
+  - notebook.yaml
+  - servingruntime.yaml
+  - inferenceservice.yaml
+  - dataconnection.yaml
+  - dspa.yaml

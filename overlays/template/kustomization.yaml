@@ -1,7 +1,23 @@
 resources:
-  - namespace.yaml
-  - configmap.yaml
-  - workbenches/wb-1-patch.yaml
-  - models/model-1.yaml
-  - runtimes/runtime.yaml
-  - secrets/dataconnection.yaml
+  - ../../base
+
+configMapGenerator:
+  - name: user-config
+    envs:
+      - params.env
+
+vars:
+  - name: USERNAME
+    objref:
+      kind: ConfigMap
+      name: user-config
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.USERNAME
+  - name: NAMESPACE_NAME
+    objref:
+      kind: ConfigMap
+      name: user-config
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.NAMESPACE_NAME

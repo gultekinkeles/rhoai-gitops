@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $(NAMESPACE_NAME)
+  labels:
+    opendatahub.io/dashboard: "true"
+
+# 2. Notebook (Workbench)

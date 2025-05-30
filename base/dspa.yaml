@@ -1,0 +1,30 @@
+apiVersion: datasciencepipelinesapplications.opendatahub.io/v1
+kind: DataSciencePipelinesApplication
+metadata:
+  name: dspa
+  namespace: $(NAMESPACE_NAME)
+spec:
+  apiServer:
+    deploy: true
+    enableOauth: true
+  database:
+    mariaDB:
+      deploy: true
+      pvcSize: 10Gi
+      username: mlpipeline
+      pipelineDBName: mlpipeline
+  dspVersion: v2
+  objectStorage:
+    externalStorage:
+      bucket: pipelines
+      host: 'minio.ai-example-training.svc.cluster.local:9000'
+      region: us-east-1
+      s3CredentialsSecret:
+        accessKey: AWS_SECRET_ACCESS_KEY
+        secretKey: AWS_ACCESS_KEY_ID
+        secretName: dataconnection-$(USERNAME)
+      scheme: http
+  persistenceAgent:
+    deploy: true
+  scheduledWorkflow:
+    deploy: true

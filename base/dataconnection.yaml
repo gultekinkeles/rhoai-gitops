@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dataconnection-$(USERNAME)
+  namespace: $(NAMESPACE_NAME)
+  labels:
+    opendatahub.io/dashboard: 'true'
+    opendatahub.io/managed: 'true'
+  annotations:
+    opendatahub.io/connection-type-ref: s3
+    openshift.io/display-name: s3-connection-$(USERNAME)
+type: Opaque
+data:
+  AWS_ACCESS_KEY_ID: <base64_encoded>
+  AWS_SECRET_ACCESS_KEY: <base64_encoded>
+  AWS_DEFAULT_REGION: <base64_encoded>
+  AWS_S3_ENDPOINT: <base64_encoded>
+  AWS_S3_BUCKET: <base64_encoded>
+
+# 6. DSPA (Data Science Pipelines)

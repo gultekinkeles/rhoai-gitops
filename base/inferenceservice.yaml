@@ -1,0 +1,22 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: $(USERNAME)-model
+  namespace: $(NAMESPACE_NAME)
+  annotations:
+    serving.kserve.io/deploymentMode: ModelMesh
+    openshift.io/display-name: $(USERNAME)-model
+  labels:
+    opendatahub.io/dashboard: 'true'
+spec:
+  predictor:
+    model:
+      runtime: $(USERNAME)-model-runtime
+      modelFormat:
+        name: onnx
+        version: '1'
+      storage:
+        key: aws-connection
+        path: models/$(USERNAME)/model.onnx
+
+# 5. Data Connection (S3 Secret)

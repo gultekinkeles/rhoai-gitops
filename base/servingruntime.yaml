@@ -1,0 +1,47 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: $(USERNAME)-model-runtime
+  namespace: $(NAMESPACE_NAME)
+  annotations:
+    enable-route: 'true'
+    opendatahub.io/apiProtocol: REST
+    openshift.io/display-name: $(USERNAME)-model-server
+  labels:
+    opendatahub.io/dashboard: 'true'
+spec:
+  supportedModelFormats:
+    - name: onnx
+      version: '1'
+      autoSelect: true
+  builtInAdapter:
+    serverType: ovms
+    runtimeManagementPort: 8888
+    memBufferBytes: 134217728
+    modelLoadingTimeoutMillis: 90000
+  multiModel: true
+  replicas: 1
+  containers:
+    - name: ovms
+      image: quay.io/opendatahub/ovms:latest
+      args:
+        - '--port=8001'
+        - '--rest_port=8888'
+        - '--config_path=/models/model_config_list.json'
+      resources:
+        limits:
+          cpu: '2'
+          memory: 8Gi
+        requests:
+          cpu: '1'
+          memory: 4Gi
+      volumeMounts:
+        - mountPath: /dev/shm
+          name: shm
+  volumes:
+    - name: shm
+      emptyDir:
+        medium: Memory
+        sizeLimit: 2Gi
+
+# 4. InferenceService (Model Deployment)

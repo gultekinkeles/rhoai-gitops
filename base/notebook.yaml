@@ -1,0 +1,34 @@
+apiVersion: kubeflow.org/v1
+kind: Notebook
+metadata:
+  name: $(USERNAME)-workbench
+  namespace: $(NAMESPACE_NAME)
+  annotations:
+    notebooks.opendatahub.io/inject-oauth: 'true'
+    opendatahub.io/image-display-name: Minimal Python
+    opendatahub.io/username: $(USERNAME)
+    notebooks.opendatahub.io/last-image-selection: 's2i-minimal-notebook:2024.1'
+    notebooks.opendatahub.io/last-size-selection: Small
+spec:
+  template:
+    spec:
+      containers:
+        - name: $(USERNAME)-workbench
+          image: quay.io/odh/s2i-minimal-notebook:2024.1
+          resources:
+            limits:
+              cpu: "2"
+              memory: 8Gi
+            requests:
+              cpu: "1"
+              memory: 8Gi
+          volumeMounts:
+            - mountPath: /opt/app-root/src
+              name: $(USERNAME)-workbench
+      volumes:
+        - name: $(USERNAME)-workbench
+          persistentVolumeClaim:
+            claimName: $(USERNAME)-workbench
+      serviceAccountName: $(USERNAME)-workbench
+
+# 3. ServingRuntime (Model Server)
