@@ -1,0 +1,12 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: $(RUNTIME_NAME)
+  namespace: $(NAMESPACE)
+spec:
+  supportedModelFormats:
+    - name: onnx
+      version: '1'
+  containers:
+    - name: runtime
+      image: quay.io/example/onnxruntime:latest

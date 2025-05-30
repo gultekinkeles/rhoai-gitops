@@ -1,0 +1,15 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: $(MODEL_NAME)
+  namespace: $(NAMESPACE)
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: onnx
+        version: '1'
+      runtime: $(RUNTIME_NAME)
+      storage:
+        key: $(STORAGE_SECRET)
+        path: $(MODEL_PATH)

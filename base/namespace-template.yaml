@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $(NAMESPACE)
+  labels:
+    opendatahub.io/dashboard: "true"
+    modelmesh-enabled: "true"

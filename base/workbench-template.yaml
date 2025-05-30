@@ -1,0 +1,11 @@
+apiVersion: kubeflow.org/v1
+kind: Notebook
+metadata:
+  name: $(WORKBENCH_NAME)
+  namespace: $(NAMESPACE)
+spec:
+  template:
+    spec:
+      containers:
+      - name: $(WORKBENCH_NAME)
+        image: quay.io/example/$(WORKBENCH_IMAGE)
